@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/stianeikeland/go-rpio"
 	"os"
+	"time"
 )
 
 func main() {
@@ -13,6 +14,13 @@ func main() {
 	}
 	defer rpio.Close()
 	pin := rpio.Pin(10)
-	fmt.Println(3)
+	pin.PullUp()
+	fmt.Printf("PullUp: %d\n", pin.Read())
+
 	pin.Output()
+
+	for x := 0; x < 20; x++ {
+		pin.Toggle()
+		time.Sleep(time.Second / 5)
+	}
 }
